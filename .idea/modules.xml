@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datosinmutables.iml" filepath="$PROJECT_DIR$/.idea/modules/datosinmutables.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datosinmutables-build.iml" filepath="$PROJECT_DIR$/.idea/modules/datosinmutables-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datosinmutables_2095.iml" filepath="$PROJECT_DIR$/.idea/modules/datosinmutables_2095.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/datosinmutables_2095-build.iml" filepath="$PROJECT_DIR$/.idea/modules/datosinmutables_2095-build.iml" />
+    </modules>
+  </component>
+</project>
