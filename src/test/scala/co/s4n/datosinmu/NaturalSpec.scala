@@ -5,18 +5,18 @@ import org.scalatest.matchers.should.Matchers
 
 class NaturaluralSpec extends AnyFlatSpec with Matchers {
 
-  "9. La declaración de el tipo algebráico cero " should " Cero" in {
+  "La declaración de el tipo algebráico cero " should " Cero" in {
     val cero = Cero
     cero shouldEqual Cero
   }
 
-  "9. el valor algebráico de uno " should " Suc(cero) " in {
+  "El valor algebráico de uno " should " Suc(cero) " in {
     val uno = Suc(Cero)
     uno shouldEqual Suc(Cero)
   }
 
 
-  "9. El valor algebráico de 2" should " Suc(Suc(cero)) " in {
+  "El valor algebráico de 2" should " Suc(Suc(cero)) " in {
     val dos = Suc(Suc(Cero))
     dos shouldEqual Suc(Suc(Cero))
   }
@@ -32,14 +32,25 @@ class NaturaluralSpec extends AnyFlatSpec with Matchers {
   }
 
 
-  "11. EL natural de 0" should " Cero " in {
+  "EL natural de 0" should " Cero " in {
     val c = Natural.intToNatural(0)
     c shouldEqual Cero
   }
 
-  "11. El natural de 5" should "  Suc(Suc(Suc(Suc(Suc(Cero))))) " in {
+  "El natural de 5" should "  Suc(Suc(Suc(Suc(Suc(Cero))))) " in {
     val f = Natural.intToNatural(5)
     f shouldEqual Suc(Suc(Suc(Suc(Suc(Cero)))))
   }
 
+  "La función addNat(Suc(Suc(Suc(Suc(Cero)))),Suc(Suc(Cero)))" should "  Suc(Suc(Suc(Suc(Suc(Cero))))) " in {
+
+    val f = Natural.addNat(Suc(Suc(Suc(Suc(Cero)))), Suc(Suc(Cero)))
+    f shouldEqual Suc(Suc(Suc(Suc(Suc(Suc(Cero))))))
+  }
+
+  "La función prodNat(Suc(Suc(Suc(Suc(Cero)))),Suc(Suc(Cero)))" should "  Suc(Suc(Suc(Suc(Suc(Cero))))) " in {
+
+    val f = Natural.prodNat(Suc(Suc(Suc(Suc(Cero)))), Suc(Suc(Cero)))
+    f shouldEqual Suc(Suc(Suc(Suc(Suc(Suc(Suc(Suc(Cero))))))))
+  }
 }

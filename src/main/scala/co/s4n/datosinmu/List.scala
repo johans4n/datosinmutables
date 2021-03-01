@@ -202,12 +202,12 @@ object List {
    * @tparam A
    * @return Lista combinada
    */
-  @tailrec
-  def append[A](a: List[A], b: List[A]): List[A] = (a, b) match {
+
+  def append[A](lst1: List[A], lst2: List[A]): List[A] = (lst1, lst2) match {
     case (Nil, Nil) => Nil
-    case (l1, Nil) => l1
-    case (Nil, l2) => l2
-    case (l1, l2) => append(tail(l1), l2)
+    case (lst1, Nil) => lst1
+    case (Nil, lst2) => lst2
+    case (Const(h, t), lst2) => Const(h, append(t, lst2))
   }
 
   /**
@@ -330,7 +330,7 @@ object List {
    * un valor entre los elementos originales de la lista
    *
    * @param elem Valor a entremezclar
-   * @param lst Lista a la cual se le desea entremezclar un valor
+   * @param lst  Lista a la cual se le desea entremezclar un valor
    * @tparam A
    * @return Lista entremezclada
    */
@@ -346,5 +346,22 @@ object List {
     intersper(lst, Nil, elem)
   }
 
+  /**
+   * Esta función recibe una lista de lista
+   * valores de un tipo A y la transforma en una lista de valores de tipo A.
+   *
+   * @param l Lista a recibir
+   * @tparam A
+   * @return Lista tranformada en una lista de valores de tipo A
+   */
+  def concat[A](l: List[List[A]]): List[A] = {
+    @tailrec
+    def concatAux[A](lst: List[List[A]], acum: List[A]): List[A] = lst match {
+      case Nil => acum
+      case Const(h, t) => concatAux(t, append(acum, h))
+    }
+
+    concatAux(l, Nil)
+  }
 
 }
