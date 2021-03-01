@@ -16,7 +16,7 @@ $ run
 ```
 
 ## Funciones :bulb:
-###Funciones de tipo List :ledger:
+### Funciones de tipo List :ledger:
 * **Tail:** Remueve el primer elemento de una Lista.
 * **Head:** Retorna la cabeza de una lista.
 * **And:** Realiza la conjunción lógica de una lista de booleanos.
@@ -42,13 +42,13 @@ $ run
 * **Intersperse:** Se encaga de entremezclar un valor entre los elementos originales de una lista.
 * **Concat:** Se encarga de tomar una lista de lista valores de un tipo A y la transforma en una lista de valores tipo
 
-###Funciones de tipo Natural :leaves:
+### Funciones de tipo Natural :leaves:
 * **naturalToInt:** Convierte el típo de dato Natural a entero.
 * **intToNatural:** Convierte un entero al tipo de dato algebraico Natural.
 * **addNat:** Suma dos listas de tipo Natural.
 * **prodNat:** Multiplica dos listas de tipo Natural.
 
-##Archivos de pruebas
+## Archivos de pruebas
 Al interior encontrará dos archivos de pruebas los cuales son
 * **ListSpec:** Pruebas para las funciones de tipo List.
 * **NaturalSpec:** Pruebas para las funciones de Natural.
