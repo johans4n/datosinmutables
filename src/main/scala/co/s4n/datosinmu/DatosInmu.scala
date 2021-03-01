@@ -2,7 +2,7 @@ package co.s4n.datosinmu
 
 import co.s4n.datosinmu.List._
 
-object DatosInmu {
+object DatosInmu extends App{
   /**
    * Función literal que recibe una lista y revisa el patrón
    */
@@ -14,5 +14,6 @@ object DatosInmu {
     case _ => 777
   }
   val y = tail(List(4, 5, 6, 7))
-  val z =  List(3,4,5,5,6)
+  val z = List(3, 4, 5, 5, 6)
+  print(addEnd(2, z))
 }

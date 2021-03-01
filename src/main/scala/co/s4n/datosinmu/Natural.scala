@@ -30,4 +30,32 @@ object Natural {
     case 0 => Cero
     case n => Suc(intToNatural(n - 1))
   }
+
+  /**
+   * Suma dos listas de tipo Natural
+   *
+   * @param nat1 Natural 1
+   * @param nat2 Natural 2
+   * @return Lista sumada
+   */
+  def addNat(nat1: Natural, nat2: Natural): Natural = (nat1, nat2) match {
+    case (Cero, _) => nat2
+    case (_, Cero) => nat1
+    case (n1, n2) => intToNatural(naturalToInt(n1) + naturalToInt(n2))
+  }
+
+  /**
+   * Multiplica dos listas de tipo Natural
+   *
+   * @param nat1 Natural 1
+   * @param nat2 Natural 2
+   * @return Lista multiplicada
+   */
+  def prodNat(nat1: Natural, nat2: Natural): Natural = (nat1, nat2) match {
+    case (Cero, _) => nat2
+    case (_, Cero) => nat1
+    case (n1, n2) => intToNatural(naturalToInt(n1) * naturalToInt(n2))
+  }
+
+
 }
