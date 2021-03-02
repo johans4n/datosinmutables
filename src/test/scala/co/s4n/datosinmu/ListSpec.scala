@@ -145,12 +145,68 @@ class ListSpec extends AnyFlatSpec with Matchers {
   }
 
   "31. La función addEnd(Nil,List(1,3,4,5)" should "be List(1,3,4,5)" in {
-    List.addEnd(Nil, List(1, 3, 4, 5)) shouldEqual List(1, 3, 4, 5,Nil)
+    List.addEnd(Nil, List(1, 3, 4, 5)) shouldEqual List(1, 3, 4, 5, Nil)
   }
 
   "32. La función append(List(1, 3),List(1,3,4,5)" should "be List(1,3,1,3,4,5)" in {
     List.append(List(1, 3), List(1, 3, 4, 5)) shouldEqual List(1, 3, 1, 3, 4, 5)
   }
 
+  "33. La función foldRight(List(9L, 6L, 7L), Nil: List[Long])(Const(_,_))" should "Const(9,Const(6,Const(7,Nil)))" in {
+    List.foldRight(List(9L, 6L, 7L), Nil: List[Long])(Const(_, _)) shouldEqual Const(9, Const(6, Const(7, Nil)))
+  }
 
+  "34. La función length usando foldRight de List(1,2,3,4,5)" should "5" in {
+    List.lengthFoldR(List(1, 2, 3, 4, 5)) shouldEqual 5
+  }
+
+  "35. La función dropWhile(List(1,2,3,4,5))((x:Int)=>x<3)" should "List(1,2)" in {
+    List.dropWhile(List(1, 2, 3, 4, 5))((x: Int) => x < 3) shouldEqual List(3, 4, 5)
+  }
+
+  "36. La función dropWhile(List(1,2,3,4,5))((x:Int)=>x>3)" should "List(1,2)" in {
+    List.dropWhile(List(1, 2, 3, 4, 5))((x: Int) => x > 3) shouldEqual List(1,2,3)
+  }
+
+  "37. La función takeWhile(List(1,2,3,4,5))((x:Int)=>x<3)" should "List(1,2)" in {
+    List.takeWhile(List(1, 2, 3, 4, 5))(_ < 3) shouldEqual List(1, 2)
+  }
+
+  "38. La función takeWhile(List(1,2,3,4,5))((x:Int)=>x>3)" should "List(4,5)" in {
+    List.takeWhile(List(1, 2, 3, 4, 5))(_ > 3) shouldEqual List(4, 5)
+  }
+
+  "39. La función filter(List(1,2,3,4,5))((x:Int)=>x>3)" should "List(4,5)" in {
+    List.filter(List(1, 2, 3, 4, 5))(_ > 3) shouldEqual List(4, 5)
+  }
+
+  "40. La función unzipFoldR(List((1,true),(2,true),(3,false),(4,false))) " should "(List(2,3,4),List(true,true,false,false))" in {
+    List.unzipFoldR(List((1,true),(2,true),(3,false),(4,false))) shouldEqual (List(1,2,3,4),List(true,true,false,false))
+  }
+
+  "41. La función lengthL(List(1, 2, 3 ,4, 5)) " should "be 5" in {
+    List.lengthL(List(1, 2, 3, 4, 5)) shouldEqual 5
+  }
+
+  "42. La conjunción lógica de la lista " should " retornar true si todos los datos en la lista son true" in {
+    val truelist = List(true, true, true, true)
+    List.andL(truelist) shouldEqual true
+  }
+
+  "43. La conjunción lógica de la lista " should " retornar true si todos los datos en la lista son true" in {
+    val truelist = List(true, false, true, true)
+    List.andL(truelist) shouldEqual false
+  }
+
+  "44. La función takeWhileL(List(1,2,3,4,5))((x:Int)=>x>3)" should "List(4,5)" in {
+    List.takeWhileL(List(1, 2, 3, 4, 5))(_ > 3) shouldEqual List(4, 5)
+  }
+
+  "45. La función filterL(List(1,2,3,4,5))((x:Int)=>x>3)" should "List(4,5)" in {
+    List.filterL(List(1, 2, 3, 4, 5))(_ > 3) shouldEqual List(4, 5)
+  }
+
+  "46. La función unzipL(List('hola',2),('prueba',3),('zip',4)) " should "be List('hola', 'prueba', 'zip'),List(2, 3, 4))" in {
+    List.unzipL(List(("hola", 2), ("prueba", 3), ("zip", 4))) shouldEqual(List("hola", "prueba", "zip"), List(2, 3, 4))
+  }
 }

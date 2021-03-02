@@ -364,4 +364,180 @@ object List {
     concatAux(l, Nil)
   }
 
+
+  /**
+   * Map //aun nosé para que sirve
+   *
+   * @param as
+   * @param f
+   * @tparam A
+   * @tparam B
+   * @return
+   */
+  def map[A, B](as: List[A])(f: A => B): List[B] = foldRight(as, Nil: List[B])((el: A, acc: List[B]) => Const(f(el), acc))
+
+
+  /**
+   * Función de alto orden que aplica una operación definida dentro de una función a un objeto de tipo List
+   *
+   * @param as Lista de entrada
+   * @param z  Variable a retornar én caso de excepción
+   * @param f  Función que recibe para aplicarse sobre la lista
+   * @tparam A
+   * @tparam B
+   * @return Valor resultante de la aplicación de f sobre la lista
+   */
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = as match {
+    case Nil => z
+    case Const(h, t) => f(h, foldRight(t, z)(f))
+  }
+
+  /**
+   * Función de alto orden que aplica una operación definida dentro de una función a un objeto de tipo List
+   * Esta función a diferencia de foldRight realiza las funciones con recursión de cola aplicando el operador de
+   * izquierda a derecha.
+   *
+   * @param as Lista de entrada
+   * @param z  Variable a retornar én caso de excepción
+   * @param f  Función que recibe para aplicarse sobre la lista
+   * @tparam A
+   * @tparam B
+   * @return Valor resultante de la aplicación de f sobre la lista
+   */
+  def foldLeft[A, B](lst: List[A], z: B)(f: (B, A) => B): B = lst match {
+    case Const(h, t) => foldLeft(t, f(z, h))(f)
+    case Nil => z
+  }
+
+  /**
+   * Suma '1' a cada elemento de una lista
+   *
+   * @param lst Lista a transformar
+   * @return Lista transformada
+   */
+  def sumarUno(lst: List[Int]): List[Int] = foldRight(lst, Nil: List[Int])((elem, lst) => Const(elem + 1, lst))
+
+  /**
+   * Obtiene el tamaño de una lista usando la función de primer orden foldright
+   *
+   * @param lst Lista a recibir
+   * @tparam A
+   * @return Tamaño de la lista
+   */
+  def lengthFoldR[A](lst: List[A]): Int = foldRight(lst, 0)((_, t) => 1 + t)
+
+  /**
+   * Esta funcion recibe un arreglo de valores  Boolean y devuelve true si todos los
+   * valores son verdaderos, en caso contrario devuelve false
+   * En este caso utiliza foldRight como función de primer orden para realizar la operación
+   *
+   * @param lst
+   * @return
+   */
+  def andFoldR(lst: List[Boolean]): Boolean = foldRight(lst, true)(_ && _)
+
+  /**
+   * Esta función retorna una lista excluyendo los valores que cumplen la condición de un predicado
+   *
+   * @param lst Lista a recibir
+   * @param f   Predicado
+   * @tparam A
+   * @return Lista filtrada
+   */
+  def dropWhile[A](lst: List[A])(f: A => Boolean): List[A] = lst match {
+    case Const(h, t) => if (f(h))
+      dropWhile(t)(f)
+    else
+      Const(h, dropWhile(t)(f))
+    case _ => lst
+  }
+
+  /**
+   * Esta función retorna una lista incluyendo los valores que cumplen la condición de un predicado
+   *
+   * @param lst Lista a recibir
+   * @param f   Predicado
+   * @tparam A
+   * @return Lista filtrada
+   */
+  def takeWhile[A](lst: List[A])(p: A => Boolean): List[A] = lst match {
+    case Const(h, t) =>
+      if (p(h))
+        Const(h, takeWhile(t)(p))
+      else takeWhile(t)(p)
+
+    case _ => Nil
+  }
+
+  /**
+   * Esta función retorna una lista incluyendo los valores que cumplen la condición de un predicado
+   * La diferencia de esta función con la función takeWhile es que esta utiliza foldRight
+   *
+   * @param lst Lista a recibir
+   * @param f   Predicado
+   * @tparam A
+   * @return Lista filtrada
+   */
+  def filter[A](lst: List[A])(p: A => Boolean): List[A] = foldRight(lst, Nil: List[A])((x, y) => if (p(x)) Const(x, y) else y)
+
+  /**
+   * Esta función se encarga de dividir listas fusionadas en pares utilizando la función de primer orden foldRight
+   *
+   * @param lst Lista a recibir
+   * @tparam A
+   * @tparam B
+   * @return Tupla de listas separadas por tipo
+   */
+  def unzipFoldR[A, B](lst: List[(A, B)]): (List[A], List[B]) = foldRight(lst, (Nil: List[A], Nil: List[B]))((x, y) => (Const(x._1, y._1), Const(x._2, y._2)))
+
+  /**
+   * Obtiene el tamaño de una lista usando la función de primer orden foldLeft
+   *
+   * @param lst Lista a recibir
+   * @tparam A
+   * @return Tamaño de la lista
+   */
+  def lengthL[A](lst: List[A]): Int = foldLeft(lst, 0)((x, t) => 1 + x)
+
+  /**
+   * Hace la disyunción lógica de una lista de booleanos usando la función de primer orden foldLeft
+   *
+   * @param lst lista a evaluar
+   * @return Valor booleano resultado de la disyunción lógica
+   */
+  def andL(lst: List[Boolean]): Boolean = foldLeft(lst, true)(_ && _)
+
+  /**
+   * Esta función retorna una lista incluyendo los valores que cumplen la condición de un predicado
+   * A diferencia de la función takeWhile esta utiliza la función de primer orden foldLeft
+   *
+   * @param lst Lista a recibir
+   * @param p
+   * @tparam A
+   * @return Lista con los valores que cumplieron el predicado
+   */
+  def takeWhileL[A](lst: List[A])(p: A => Boolean): List[A] = foldLeft(lst, Nil: List[A])((x, y) => if (p(y)) addEnd(y, x) else x)
+
+  /**
+   * Esta función retorna una lista incluyendo los valores que cumplen la condición de un predicado
+   * La diferencia de esta función con la función takeWhile es que esta utiliza foldLeft
+   *
+   * @param lst Lista a recibir
+   * @param p
+   * @tparam A
+   * @return Lista con los valores que cumplieron el predicado
+   */
+  def filterL[A](lst: List[A])(p: A => Boolean): List[A] = foldLeft(lst, Nil: List[A])((x, y) => if (p(y)) addEnd(y, x) else x)
+
+  /**
+   * Esta función se encarga de dividir listas fusionadas en pares utilizando la función de primer orden foldLeft
+   *
+   * @param lst Lista a recibir
+   * @tparam A
+   * @tparam B
+   * @return Tupla de listas separadas por tipo
+   */
+  def unzipL[A, B](lst: List[(A, B)]): (List[A], List[B]) = foldLeft(lst, (Nil: List[A], Nil: List[B]))((x, y) => (addEnd(y._1,x._1) ,addEnd(y._2,x._2) ))
+
+
 }

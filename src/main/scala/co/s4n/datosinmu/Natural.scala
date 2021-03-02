@@ -7,6 +7,7 @@ case object Cero extends Natural
 case class Suc(nat: Natural) extends Natural
 
 object Natural {
+
   /**
    * Convierte el típo de dato Natural a entero
    *
@@ -56,6 +57,5 @@ object Natural {
     case (_, Cero) => nat1
     case (n1, n2) => intToNatural(naturalToInt(n1) * naturalToInt(n2))
   }
-
 
 }
